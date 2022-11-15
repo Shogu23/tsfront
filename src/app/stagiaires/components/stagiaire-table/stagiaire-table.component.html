@@ -1,3 +1,4 @@
+<app-stagiaire-filter [filterDate]="stopDate" (onChangeFilter)="filterChanged($event)"></app-stagiaire-filter>
 <table>
     <thead>
         <tr>
@@ -10,29 +11,33 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let stagiaire of stagiaires">
-            <td>
-                {{ stagiaire.getId() }}
-            </td>
-            <td>
-                {{ stagiaire.getLastName() | uppercase }}
-            </td>
-            <td>
-                {{ stagiaire.getFirstName() }}
-            </td>
-            <td>
-                {{ stagiaire.getBirthDate() | date: 'dd-MM-YYYY'}}
-            </td>
-            <td>
-                <button type="button" (click)="onRemove(stagiaire)">X</button>
-            </td>
-        </tr>
+        <ng-container  *ngFor="let stagiaire of stagiaires">
+            <!-- Methode ternaire (rend la methode changeView inutile)
+            <tr *ngIf="(stopDate === null) ? true : stopDate.getDate() === 31 ? stagiaire.getBirthDate() > stopDate : stagiaire.getBirthDate() < stopDate"> -->
+            <tr *ngIf="changeView(stagiaire)">
+                <td>
+                    {{ stagiaire.getId() }}
+                </td>
+                <td>
+                    {{ stagiaire.getLastName() | uppercase }}
+                </td>
+                <td>
+                    {{ stagiaire.getFirstName() }}
+                </td>
+                <td>
+                    {{ stagiaire.getBirthDate() | date: 'dd-MM-YYYY'}}
+                </td>
+                <td>
+                    <button type="button" (click)="onRemove(stagiaire)">X</button>
+                </td>
+            </tr>
+        </ng-container>
     </tbody>
 
     <tfoot>
         <tr>
             <td colspan="4">Nb. items</td>
-            <td>{{ stagiaires.length }}</td>
+            <td>{{ getVisibleStagiaireNumber() }}</td>
         </tr>
     </tfoot>
 </table>

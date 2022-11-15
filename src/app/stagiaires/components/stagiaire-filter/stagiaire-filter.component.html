@@ -1,0 +1,25 @@
+<!-- MA METHODE
+<button  [ngClass]="{ 'active' : isValue == 1 }" (click)="toggle(1)" type="button">
+    &lt; 1950
+</button>
+
+<button  [ngClass]="{ 'active' : isValue == 2 }" (click)="toggle(2)" type="button">
+    &gt; 1950
+</button>
+
+<button  [ngClass]="{ 'active' : isValue == 3 }" (click)="toggle(3)" type="button">
+    ALL
+</button>
+ -->
+
+ <button type="button" [ngClass]="{'active': getButtonState('btnLT1950')}" (click)="changeButtonState('btnLT1950')">
+    &lt; 1950
+</button>
+
+<button type="button" [ngClass]="{'active': getButtonState('btnGT1950')}" (click)="changeButtonState('btnGT1950')">
+    &gt; 1950
+</button>
+
+<button type="button" [ngClass]="{'active': getButtonState('btnAll')}" (click)="changeButtonState('btnAll')">
+    All
+</button>

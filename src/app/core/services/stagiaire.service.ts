@@ -21,6 +21,16 @@ export class StagiaireService {
 		this.stagiaires.splice(stagiaireIndex, 1);
 	}
 
+	public getVisibleStagiaireNumber(date: Date | null): number {
+		if (date === null) {
+		  	return this.stagiaires.length;
+		}
+	
+    	return (date.getDate() === 31) ? 
+      	this.stagiaires.filter((obj: Stagiaire) => obj.getBirthDate() > date).length :
+      	this.stagiaires.filter((obj: Stagiaire) => obj.getBirthDate() < date).length
+	}
+
 	private feedIt(): void {
 		let stagiaire: Stagiaire = new Stagiaire();
 		stagiaire.setId(1);
@@ -29,7 +39,6 @@ export class StagiaireService {
 		stagiaire.setPhoneNumber('+(33)7 82 92 93 55');
 		stagiaire.setEmail('jla.webproject@gmail.com');
 		stagiaire.setBirthDate(new Date(1968, 3, 30));
-
 		this.stagiaires.push(stagiaire);
 
 		stagiaire = new Stagiaire();
@@ -39,7 +48,15 @@ export class StagiaireService {
 		stagiaire.setPhoneNumber('+(33)6 27 98 93 55');
 		stagiaire.setEmail('cmarthouret@gmail.com');
 		stagiaire.setBirthDate(new Date(1985, 5, 19));
-		
+		this.stagiaires.push(stagiaire);
+
+		stagiaire = new Stagiaire();
+		stagiaire.setId(2);
+		stagiaire.setLastName('Bond');
+		stagiaire.setFirstName('James');
+		stagiaire.setPhoneNumber('+(33)7 07 07 07 07');
+		stagiaire.setEmail('james.bond@mi6.co.uk');
+		stagiaire.setBirthDate(new Date(1945, 5, 7));
 		this.stagiaires.push(stagiaire);
 	}
 }
