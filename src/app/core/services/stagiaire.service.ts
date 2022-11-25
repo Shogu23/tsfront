@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Stagiaire } from '../models/stagiaire';
 
@@ -37,7 +37,14 @@ export class StagiaireService {
 
 	public add(stagiaire: Stagiaire): void {
 		console.log("Service add stagiaire", stagiaire)
-		this.httpClient.post(this.controllerBaseUrl, stagiaire).subscribe((res: any) => {
+		this.httpClient.post(this.controllerBaseUrl, stagiaire)
+		.pipe(
+			catchError((error: HttpErrorResponse) => {
+				console.log("Trainee not created", error);
+				return throwError(() => new Error("Not Created"));
+			})
+		)
+		.subscribe((res: any) => {
 			console.log("Response ", res);
 			// now we should add and display new result in table
 		})
