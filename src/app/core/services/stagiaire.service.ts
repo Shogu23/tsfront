@@ -35,6 +35,14 @@ export class StagiaireService {
 		)
 	}
 
+	public add(stagiaire: Stagiaire): void {
+		console.log("Service add stagiaire", stagiaire)
+		this.httpClient.post(this.controllerBaseUrl, stagiaire).subscribe((res: any) => {
+			console.log("Response ", res);
+			// now we should add and display new result in table
+		})
+	}
+
 	public getStagiaires(): Array<Stagiaire> {
 		return this.stagiaires;
 	}
