@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Stagiaire } from '../models/stagiaire';
 
 @Injectable({
@@ -6,9 +10,29 @@ import { Stagiaire } from '../models/stagiaire';
 })
 export class StagiaireService {
 	private stagiaires: Array<Stagiaire> = [];
+	private controllerBaseUrl: string = `${environment.apiBaseUrl}/trainee`;
 
-	constructor() {
-		this.feedIt();
+	constructor(private httpClient: HttpClient) {}
+
+	public findAll(): Observable<Stagiaire[]> {
+		return this.httpClient.get<any>(
+			`${this.controllerBaseUrl}`
+		)
+		.pipe(
+			take(1),
+			map((stagiaires: any[]) => {
+				return stagiaires.map((inputStagiaire: any) => {
+					const stagiaire: Stagiaire = new Stagiaire();
+					stagiaire.setId(inputStagiaire.id);
+					stagiaire.setLastName(inputStagiaire.lastname);
+					stagiaire.setFirstName(inputStagiaire.firstname);
+					stagiaire.setEmail(inputStagiaire.email);
+					stagiaire.setPhoneNumber(inputStagiaire.phoneNumber);
+					stagiaire.setBirthDate(new Date(inputStagiaire.birthdate));
+					return stagiaire;
+				});
+			})
+		)
 	}
 
 	public getStagiaires(): Array<Stagiaire> {
@@ -17,8 +41,11 @@ export class StagiaireService {
 
 	public delete(stagiaire: Stagiaire): void {
 		console.log(`Le composant me demande de supprimer ${stagiaire.getLastName()}`);
-		const stagiaireIndex: number = this.stagiaires.findIndex((obj: Stagiaire) => obj.getId() === stagiaire.getId());
-		this.stagiaires.splice(stagiaireIndex, 1);
+		this.httpClient.delete(`${this.controllerBaseUrl}/${stagiaire.getId()}`).subscribe((res: any) => {
+			console.log('yata')
+		})
+		// const stagiaireIndex: number = this.stagiaires.findIndex((obj: Stagiaire) => obj.getId() === stagiaire.getId());
+		// this.stagiaires.splice(stagiaireIndex, 1);
 	}
 
 	public getVisibleStagiaireNumber(date: Date | null): number {
@@ -51,7 +78,7 @@ export class StagiaireService {
 		this.stagiaires.push(stagiaire);
 
 		stagiaire = new Stagiaire();
-		stagiaire.setId(2);
+		stagiaire.setId(3);
 		stagiaire.setLastName('Bond');
 		stagiaire.setFirstName('James');
 		stagiaire.setPhoneNumber('+(33)7 07 07 07 07');

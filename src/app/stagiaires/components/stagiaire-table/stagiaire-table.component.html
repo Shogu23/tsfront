@@ -16,7 +16,9 @@
             <tr *ngIf="(stopDate === null) ? true : stopDate.getDate() === 31 ? stagiaire.getBirthDate() > stopDate : stagiaire.getBirthDate() < stopDate"> -->
             <tr *ngIf="changeView(stagiaire)">
                 <td>
-                    {{ stagiaire.getId() }}
+                    <span appBubble [config]="bubbleConfig" (click)="onClick(stagiaire)">
+                        {{ stagiaire | initials: {firstNameFirst: true, full: true} }} {{ stagiaire.getId() }}
+                    </span>
                 </td>
                 <td>
                     {{ stagiaire.getLastName() | uppercase }}
@@ -41,3 +43,7 @@
         </tr>
     </tfoot>
 </table>
+<app-stagiaire-detail
+    [hidden]="isHidden$ | async"
+    [stagiaire]="selectedStagiaire!">
+</app-stagiaire-detail>
