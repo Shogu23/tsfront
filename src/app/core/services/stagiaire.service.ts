@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
+import { StagiaireDto } from 'src/app/stagiaires/dto/stagiaire-dto';
 import { environment } from 'src/environments/environment';
 import { Stagiaire } from '../models/stagiaire';
 
@@ -24,20 +25,20 @@ export class StagiaireService {
 				return stagiaires.map((inputStagiaire: any) => {
 					const stagiaire: Stagiaire = new Stagiaire();
 					stagiaire.setId(inputStagiaire.id);
-					stagiaire.setLastName(inputStagiaire.lastname);
-					stagiaire.setFirstName(inputStagiaire.firstname);
+					stagiaire.setLastName(inputStagiaire.lastName);
+					stagiaire.setFirstName(inputStagiaire.firstName);
 					stagiaire.setEmail(inputStagiaire.email);
 					stagiaire.setPhoneNumber(inputStagiaire.phoneNumber);
-					stagiaire.setBirthDate(new Date(inputStagiaire.birthdate));
+					stagiaire.setBirthDate(new Date(inputStagiaire.birthDate));
 					return stagiaire;
 				});
 			})
 		)
 	}
 
-	public add(stagiaire: Stagiaire): void {
+	public add(stagiaire: StagiaireDto): void {
 		console.log("Service add stagiaire", stagiaire)
-		this.httpClient.post(this.controllerBaseUrl, stagiaire)
+		this.httpClient.post<StagiaireDto>(this.controllerBaseUrl, stagiaire)
 		.pipe(
 			catchError((error: HttpErrorResponse) => {
 				console.log("Trainee not created", error);

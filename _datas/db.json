@@ -2,43 +2,43 @@
   "trainee": [
     {
       "id": 1,
-      "lastname": "Aubert",
-      "firstname": "Jean-Luc",
+      "lastName": "Aubert",
+      "firstName": "Jean-Luc",
       "email": "jla.webprojet@gmail.com",
       "phoneNumber": "06 66 77 88 99",
-      "birthdate": "1968-04-30T00:00:00.000Z"
+      "birthDate": "1968-04-30T00:00:00.000Z"
     },
     {
       "id": 2,
-      "lastname": "Marthouret",
-      "firstname": "Charles",
+      "lastName": "Marthouret",
+      "firstName": "Charles",
       "email": "charlesm@gmail.com",
       "phoneNumber": "07 82 92 93 44",
-      "birthdate": "1985-05-19T00:00:00.000Z"
+      "birthDate": "1985-05-19T00:00:00.000Z"
     },
     {
       "id": 3,
-      "lastname": "Pleinlzouk",
-      "firstname": "Jean-Hay",
+      "lastName": "Pleinlzouk",
+      "firstName": "Jean-Hay",
       "email": "pleinleQ@gmail.com",
       "phoneNumber": "07 43 21 80 00",
-      "birthdate": "1918-08-14"
+      "birthDate": "1918-08-14"
     },
     {
-      "lastname": "Marthourax",
-      "firstname": "Charloux",
+      "lastName": "Marthourax",
+      "firstName": "Charloux",
       "email": "shtshtpasdemail@gmail.com",
       "phoneNumber": "0728151412",
-      "birthdate": "1945-11-11",
+      "birthDate": "1945-11-11",
       "id": 4
     },
     {
       "id": 5,
-      "lastname": "Monlastname",
-      "firstname": "Firstnameamoi",
+      "lastName": "Monlastname",
+      "firstName": "Firstnameamoi",
       "email": "shog@mail.com",
       "phoneNumber": "",
-      "birthdate": "2022-11-02T00:00:00.000Z"
+      "birthDate": "2022-11-02T00:00:00.000Z"
     }
   ]
 }
