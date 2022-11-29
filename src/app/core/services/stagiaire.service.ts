@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
@@ -54,32 +54,33 @@ export class StagiaireService {
 		)
 	}
 
-	public add(stagiaire: StagiaireDto): void {
+	public add(stagiaire: StagiaireDto): Observable<Stagiaire> {
 		console.log("Service add stagiaire", stagiaire)
-		this.httpClient.post<StagiaireDto>(this.controllerBaseUrl, stagiaire)
+		return this.httpClient.post<StagiaireDto>(this.controllerBaseUrl, stagiaire)
 		.pipe(
-			catchError((error: HttpErrorResponse) => {
-				console.log("Trainee not created", error);
-				return throwError(() => new Error("Not Created"));
+			take(1),
+			map((stagiaireDto: StagiaireDto) =>{
+				const stagiaire: Stagiaire = new Stagiaire();
+				stagiaire.setId(stagiaireDto.id!);
+				stagiaire.setLastName(stagiaireDto.lastName);
+				stagiaire.setFirstName(stagiaireDto.firstName);
+				stagiaire.setBirthDate(new Date(stagiaireDto.birthDate));
+				stagiaire.setPhoneNumber(stagiaireDto.phoneNumber);
+				stagiaire.setEmail(stagiaireDto.email);
+				return stagiaire;
 			})
 		)
-		.subscribe((res: any) => {
-			console.log("Response ", res);
-			// now we should add and display new result in table
-		})
+	}
+	
+	public delete(stagiaire: Stagiaire): Observable<HttpResponse<any>> {
+		console.log(`Le composant me demande de supprimer ${stagiaire.getLastName()} son id: ${stagiaire.getId()}`);
+		return this.httpClient.delete(`${this.controllerBaseUrl}/${stagiaire.getId()}`,	{ observe: 'response' });
+		// const stagiaireIndex: number = this.stagiaires.findIndex((obj: Stagiaire) => obj.getId() === stagiaire.getId());
+		// this.stagiaires.splice(stagiaireIndex, 1);
 	}
 
 	public getStagiaires(): Array<Stagiaire> {
 		return this.stagiaires;
-	}
-
-	public delete(stagiaire: Stagiaire): void {
-		console.log(`Le composant me demande de supprimer ${stagiaire.getLastName()}`);
-		this.httpClient.delete(`${this.controllerBaseUrl}/${stagiaire.getId()}`).subscribe((res: any) => {
-			console.log('yata')
-		})
-		// const stagiaireIndex: number = this.stagiaires.findIndex((obj: Stagiaire) => obj.getId() === stagiaire.getId());
-		// this.stagiaires.splice(stagiaireIndex, 1);
 	}
 
 	public getVisibleStagiaireNumber(date: Date | null): number {
@@ -90,34 +91,5 @@ export class StagiaireService {
     	return (date.getDate() === 31) ? 
       	this.stagiaires.filter((obj: Stagiaire) => obj.getBirthDate() > date).length :
       	this.stagiaires.filter((obj: Stagiaire) => obj.getBirthDate() < date).length
-	}
-
-	private feedIt(): void {
-		let stagiaire: Stagiaire = new Stagiaire();
-		stagiaire.setId(1);
-		stagiaire.setLastName('Aubert');
-		stagiaire.setFirstName('Jean-Luc');
-		stagiaire.setPhoneNumber('+(33)7 82 92 93 55');
-		stagiaire.setEmail('jla.webproject@gmail.com');
-		stagiaire.setBirthDate(new Date(1968, 3, 30));
-		this.stagiaires.push(stagiaire);
-
-		stagiaire = new Stagiaire();
-		stagiaire.setId(2);
-		stagiaire.setLastName('Marthouret');
-		stagiaire.setFirstName('Charles');
-		stagiaire.setPhoneNumber('+(33)6 27 98 93 55');
-		stagiaire.setEmail('cmarthouret@gmail.com');
-		stagiaire.setBirthDate(new Date(1985, 5, 19));
-		this.stagiaires.push(stagiaire);
-
-		stagiaire = new Stagiaire();
-		stagiaire.setId(3);
-		stagiaire.setLastName('Bond');
-		stagiaire.setFirstName('James');
-		stagiaire.setPhoneNumber('+(33)7 07 07 07 07');
-		stagiaire.setEmail('james.bond@mi6.co.uk');
-		stagiaire.setBirthDate(new Date(1945, 5, 7));
-		this.stagiaires.push(stagiaire);
 	}
 }

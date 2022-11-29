@@ -37,7 +37,9 @@ export class StagiaireFormComponent implements OnInit {
 	onSubmit() {
 		console.log('Read from form: ',this.stagiaireForm.value);
 		const dto: StagiaireDto = new StagiaireDto(this.stagiaireForm.value);
-		this.stagiaireService.add(dto);
+		this.stagiaireService.add(dto).subscribe(() => {
+			this.goHome();
+		});
 	}
 
 	public goHome(): void {

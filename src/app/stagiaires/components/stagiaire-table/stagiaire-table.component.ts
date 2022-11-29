@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -51,7 +52,23 @@ export class StagiaireTableComponent implements OnInit {
 		console.log(
 			`L'utilisateur souhaite supprimer ${stagiaire.getLastName()}`
 		);
-		this.stagiaireService.delete(stagiaire);
+		this.stagiaireService.delete(stagiaire)
+		.subscribe({
+			next: (response: HttpResponse<any>) => {
+				this.stagiaires.splice(
+					this.stagiaires.findIndex((s: Stagiaire) => s.getId() === stagiaire.getId()), 1
+				)
+			  // Here goes the snackbar
+			},
+			error: (error: any) => {
+				// Something went wrong, deal with it
+				console.log('Error was intercepted')
+			},
+			complete: () => {
+				console.log('Complete was fired')
+			}
+		})
+		;
 	}
 
 	public onClick(stagiaire: Stagiaire): void {
