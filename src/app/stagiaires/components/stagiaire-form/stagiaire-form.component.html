@@ -44,15 +44,29 @@
             </mat-error>
         </mat-form-field>
     </div>
-    
+
     <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Birthdate</mat-label>
+            <input matInput [matDatepicker]="dp" formControlName="birthDate">
+            <mat-hint>JJ-MM-YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+    <!-- <div>
         <mat-form-field appearance="fill">
             <mat-label>Birthdate</mat-label>
             <input matInput id="birthDate" type="date" formControlName="birthDate">
         </mat-form-field>       
-    </div>
+    </div> -->
 
     <div>
         <button mat-raised-button color="primary" [disabled]="!stagiaireForm.valid">Ajouter stagiaire</button>
+        <!-- <button mat-raised-button color="danger" type="button" (click)="goHome()"></button> -->
+        <button mat-fab color="warn" type="button" (click)="goHome()">
+            <mat-icon>🧐</mat-icon>
+        </button>
     </div>
 </form>

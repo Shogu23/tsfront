@@ -38,12 +38,11 @@
 
     <tfoot>
         <tr>
-            <td colspan="4">Nb. items</td>
-            <td>{{ getVisibleStagiaireNumber() }}</td>
+            <td colspan="8">Nb. items</td>
+            <!-- <td>{{ getVisibleStagiaireNumber() }}</td> -->
         </tr>
     </tfoot>
 </table>
-<app-stagiaire-detail
-    [hidden]="isHidden$ | async"
-    [stagiaire]="selectedStagiaire!">
-</app-stagiaire-detail>
+
+<a [routerLink]="['/', 'stagiaire', 'add']">AjOuTEr</a>
+

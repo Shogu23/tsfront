@@ -1,21 +1,17 @@
 <ng-container *ngIf="stagiaire">
-    <div class="outer-dialog">
-        <div class="inner-dialog">
-            <div class="card">
-                <div class="card-header" appBubble [config]="bubbleConfig">
-                    {{ stagiaire | initials }}
-                </div>
-                <div class="card-content">
-                    <p>{{ stagiaire.getLastName() }}</p>
-                    <p>{{ stagiaire.getFirstName() }}</p>
-                    <p>{{ stagiaire.getBirthDate() | date }}</p>
-                    <p>{{ stagiaire.getEmail() }}</p>
-                    <p>{{ stagiaire.getPhoneNumber() }}</p>
-                </div>
-                <div class="card-footer">
-                    <button type="button" (click)="onClose()">Close</button>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header" appBubble [config]="bubbleConfig">
+            {{ stagiaire | initials }}
+        </div>
+        <div class="card-content">
+            <p>{{ stagiaire.getLastName() }}</p>
+            <p>{{ stagiaire.getFirstName() }}</p>
+            <p>{{ stagiaire.getBirthDate() | date }}</p>
+            <p>{{ stagiaire.getEmail() }}</p>
+            <p>{{ stagiaire.getPhoneNumber() }}</p>
+        </div>
+        <div class="card-footer">
+            <button type="button" (click)="onClose()">Close</button>
         </div>
     </div>
 </ng-container>

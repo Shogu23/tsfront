@@ -2,17 +2,5 @@
 	{{ title }}
 </h1>
 
-<!-- <ul>
-	<li *ngFor="let stagiaire of stagiaires">
-		{{ stagiaire.getLastName() }}
-	</li>
-</ul>
-<button type="button" (click)="addStagiaire()">
-	Ajouter un stagiaire
-</button> -->
-<!-- <input [type]="inputType" placeholder="TON MDP FDP!!!"> -->
-<!-- <button type="button" [disabled]="this.inputType === 'text'" (click)="showPassword()">&#x1F440;</button> -->
-
-<app-stagiaire-form></app-stagiaire-form>
-
-<app-stagiaire-table></app-stagiaire-table>
+<!-- Etagère a routes: c'est la qu'Angular charge les composants routés -->
+<router-outlet></router-outlet>

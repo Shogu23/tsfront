@@ -1,5 +1,5 @@
-$title-background-color: rgb(25, 25, 200);
-$std-color: rgb(255, 255, 255);
+$title-background-color: rgb(25, 25, 200); // Background color
+$std-color: rgb(255, 255, 255); // Front color
 
 h1 {
     background-color: $title-background-color;
@@ -20,4 +20,4 @@ ul {
             margin-bottom: 0;
         }
     }
-}
+} // ul li -- ul li:last-child
