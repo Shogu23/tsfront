@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { StagiaireDto } from 'src/app/stagiaires/dto/stagiaire-dto';
 import { environment } from 'src/environments/environment';
 import { Stagiaire } from '../models/stagiaire';
