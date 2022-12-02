@@ -59,7 +59,7 @@ export class StagiaireService {
 		return this.httpClient.post<StagiaireDto>(this.controllerBaseUrl, stagiaire)
 		.pipe(
 			take(1),
-			map((stagiaireDto: StagiaireDto) =>{
+			map((stagiaireDto: StagiaireDto) => {
 				const stagiaire: Stagiaire = new Stagiaire();
 				stagiaire.setId(stagiaireDto.id!);
 				stagiaire.setLastName(stagiaireDto.lastName);
@@ -70,6 +70,23 @@ export class StagiaireService {
 				return stagiaire;
 			})
 		)
+	}
+
+	public update(stagiaire: Stagiaire): Observable<Stagiaire> {
+		return this.httpClient.put<Stagiaire>(`${this.controllerBaseUrl}`, stagiaire)
+			.pipe(
+				take(1),
+				map((anyStagiaire: any) => {
+					const stagiaire: Stagiaire = new Stagiaire();
+					stagiaire.setId(anyStagiaire.id!);
+					stagiaire.setLastName(anyStagiaire.lastName);
+					stagiaire.setFirstName(anyStagiaire.firstName);
+					stagiaire.setBirthDate(new Date(anyStagiaire.birthDate));
+					stagiaire.setPhoneNumber(anyStagiaire.phoneNumber);
+					stagiaire.setEmail(anyStagiaire.email);
+					return stagiaire;
+				})
+			)
 	}
 	
 	public delete(stagiaire: Stagiaire): Observable<HttpResponse<any>> {

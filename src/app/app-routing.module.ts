@@ -28,6 +28,10 @@ export class AppRoutingModule {
 			component: StagiaireDetailComponent
 		},
 		{
+			path: 'stagiaire/update/:id',
+			component: StagiaireFormComponent
+		},
+		{
 			path: '**', // Wild Card ? Doit tjrs etre la derniere route 
 			redirectTo: 'home',
 			pathMatch: 'full'

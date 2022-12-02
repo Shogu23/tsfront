@@ -77,7 +77,7 @@ export class StagiaireTableComponent implements OnInit {
 
 	public onUpdate(stagiaire: Stagiaire): void {
 		console.log('gotoupdatebiatch');
-		// this.router.navigate(['/', 'stagiaire', stagiaire.getId()])  
+		this.router.navigate(['/', 'stagiaire', 'update', stagiaire.getId()])  
 	}
 
 	public filterChanged(event: Date | null): void {
