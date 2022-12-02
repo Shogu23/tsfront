@@ -25,18 +25,13 @@ export class StagiaireFormComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.route.url.subscribe((url: UrlSegment[]) => {
-			if (url.filter((urlSegment: UrlSegment) => urlSegment.path === 'update').length) {
-				this.addMode = false;
-				this.stagiaireService.findOne(+url[url.length - 1].path).subscribe((stagiaire: Stagiaire) => {
-					console.log(`gonna update ${stagiaire.getId()}`);
-					this.stagiaireForm = this.formBuilderService.build(stagiaire).getForm();
-				})
-			} else {
-				this.stagiaireForm = this.formBuilderService.build(new Stagiaire).getForm();
-			}
-		});
+		this.addMode = this.route.snapshot.paramMap.get('id') ? false : true;
 
+		const data = this.route.snapshot.data;
+		this.stagiaireForm = data['formAddEdit'];
+		console.log('dans mon init ', this.stagiaireForm)
+		
+		// console.log(`${data['formAddEdit'] instanceof FormGroup ? 'OK' : 'KO'}`)
 	}
 
 	/**
@@ -49,7 +44,7 @@ export class StagiaireFormComponent implements OnInit {
 	}
 	
 	onSubmit() {
-		console.log('Read from form: ',this.stagiaireForm.value);
+		console.log('dans mon submit ', this.stagiaireForm)
 		let subscription: Observable<any>;
 
 		if (this.addMode) {
