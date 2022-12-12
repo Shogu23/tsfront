@@ -1,6 +1,20 @@
 <h1 (click)="toggleTitle()">
 	{{ title }}
 </h1>
+<nav>
+	<ul>
+		<li>
+			<a [routerLink]="['/', 'home']">Home</a>
+		</li>
+		<li>
+			POE List
+		</li>
+		<li>
+			<a *ngIf="!hasUser" [routerLink]="['/', 'login']">Login</a>
+			<a *ngIf="hasUser" (click)="onLogout()">Logout</a>
+		</li>
+	</ul>
+</nav>
 
 <!-- Etagère a routes: c'est la qu'Angular charge les composants routés -->
 <router-outlet></router-outlet>
