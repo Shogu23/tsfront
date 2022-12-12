@@ -34,4 +34,7 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
+  public onLogin(): void {
+    
+  }
 }
