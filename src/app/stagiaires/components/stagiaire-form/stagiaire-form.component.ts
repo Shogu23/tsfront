@@ -26,12 +26,8 @@ export class StagiaireFormComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.addMode = this.route.snapshot.paramMap.get('id') ? false : true;
-
 		const data = this.route.snapshot.data;
 		this.stagiaireForm = data['formAddEdit'];
-		console.log('dans mon init ', this.stagiaireForm)
-		
-		// console.log(`${data['formAddEdit'] instanceof FormGroup ? 'OK' : 'KO'}`)
 	}
 
 	/**
@@ -44,7 +40,6 @@ export class StagiaireFormComponent implements OnInit {
 	}
 	
 	onSubmit() {
-		console.log('dans mon submit ', this.stagiaireForm)
 		let subscription: Observable<any>;
 
 		if (this.addMode) {

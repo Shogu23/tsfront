@@ -5,39 +5,47 @@ import { StagiaireFormComponent } from './stagiaires/components/stagiaire-form/s
 import { StagiaireTableComponent } from './stagiaires/components/stagiaire-table/stagiaire-table.component';
 import { StagiaireResolver } from './stagiaires/resolvers/stagiaire.resolver';
 
+import { LoginFormComponent } from './user/login/login-form/login-form.component';
+
 @NgModule({
-	imports: [RouterModule.forRoot(AppRoutingModule.routes)],
-	exports: [RouterModule],
+  imports: [RouterModule.forRoot(AppRoutingModule.routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
-	public static routes: Routes = [
-		{
-			path: '',
-			redirectTo: 'home',
-			pathMatch: 'full'
-		},
-		{
-			path: 'home',
-			component: StagiaireTableComponent
-		},
-		{
-			path: 'stagiaire/add',
-			component: StagiaireFormComponent,
-			resolve: {formAddEdit: StagiaireResolver}
-		},
-		{
-			path: 'stagiaire/:id',
-			component: StagiaireDetailComponent
-		},
-		{
-			path: 'stagiaire/update/:id',
-			component: StagiaireFormComponent,
-			resolve: {formAddEdit: StagiaireResolver}
-		},
-		{
-			path: '**', // Wild Card ? Doit tjrs etre la derniere route 
-			redirectTo: 'home',
-			pathMatch: 'full'
-		}
-	];
+  public static routes: Routes = [
+    {
+      path: '',
+      redirectTo: 'login', // Redirige vers un autre chemin ici 'login'
+      pathMatch: 'full'
+      // home/1
+      // home
+    },
+    {
+      path: 'login',
+      component: LoginFormComponent
+    },
+    {
+      path: 'home',
+      component: StagiaireTableComponent
+    },
+    {
+      path:'stagiaire/add',
+      component: StagiaireFormComponent,
+      resolve: {form: StagiaireResolver}
+    },
+    {
+      path: 'stagiaire/:id',
+      component: StagiaireDetailComponent
+    },
+    {
+      path: 'stagiaire/update/:id',
+      component: StagiaireFormComponent,
+      resolve: {form: StagiaireResolver}
+    },
+    {
+      path: '**', // Wild card
+      redirectTo: 'home',
+      pathMatch: 'full'
+    }
+  ];
 }
