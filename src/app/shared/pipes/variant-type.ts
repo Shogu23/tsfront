@@ -1,4 +1,4 @@
-export interface VariantType {
+export class VariantType {
     firstNameFirst?: boolean;
     full?: boolean;
 }

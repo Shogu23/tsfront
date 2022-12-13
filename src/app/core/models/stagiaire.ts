@@ -3,7 +3,7 @@ export class Stagiaire {
     private lastName: string = '';
     private firstName: string = '';
     private email: string = '';
-    private phoneNumber!: string;
+    private phoneNumber: string = '';
     private birthDate!: Date;
 
     public getId(): number {
@@ -29,22 +29,6 @@ export class Stagiaire {
     public setFirstName(firstName: string): void {
         this.firstName = firstName;
     }
-    
-    public getEmail(): string {
-        return this.email;
-    }
-    
-    public setEmail(email: string): void {
-        this.email = email;
-    }
-    
-    public getPhoneNumber(): string {
-        return this.phoneNumber;
-    }
-    
-    public setPhoneNumber(phoneNumber: string): void {
-        this.phoneNumber = phoneNumber;
-    }
 
     public getBirthDate(): Date {
         return this.birthDate;
@@ -52,5 +36,21 @@ export class Stagiaire {
 
     public setBirthDate(birthDate: Date): void {
         this.birthDate = birthDate;
+    }
+
+    public getPhoneNumber(): string {
+        return this.phoneNumber;
+    }
+
+    public setPhoneNumber(phoneNumber: string): void {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public getEmail(): string {
+        return this.email;
+    }
+
+    public setEmail(email: string): void {
+        this.email = email;
     }
 }

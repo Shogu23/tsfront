@@ -1,0 +1,18 @@
+<ng-container *ngIf="stagiaire">
+            <div class="card">
+                <div class="card-header" appBubble [config]="bubbleConfig">
+                    {{ stagiaire | initials }}
+                </div>
+                <div class="card-content">
+                    <p>Lastname : {{ stagiaire.getLastName() }}</p>
+                    <p>Firstname : {{ stagiaire.getFirstName() }}</p>
+                    <p>Birthdate: {{ stagiaire.getBirthDate() | date }}</p>
+                    <p>Email: {{ stagiaire.getEmail() }}</p>
+                    <p>Phone number : {{ stagiaire.getPhoneNumber() }}</p>
+                </div>
+
+                <div class="card-footer">
+                    <button type="button" (click)="onClose()">Close</button>
+                </div>
+            </div>
+</ng-container>

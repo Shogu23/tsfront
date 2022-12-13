@@ -32,18 +32,17 @@ export class UserService {
 
   public login(formData: any): Observable<boolean> {
     const userIndex: number = users.findIndex((user: UserDto) => user.login === formData.userLogin && user.password === formData.userPassword)
-    // If no user found :
     if (userIndex === -1) {
-      this.hasUser$.next(false); // notify subscribers of a new value
+      this.hasUser$.next(false); // Notify subscribers of a new value
       return of(false);
     }
 
-    // Got user : 
+    // Got a user
     this._user = new User();
     this._user.id = users[userIndex].id!;
     this._user.login = users[userIndex].login;
 
-    this.hasUser$.next(true); // notify subscribers of a new value
+    this.hasUser$.next(true);
     return of(true);
   }
 

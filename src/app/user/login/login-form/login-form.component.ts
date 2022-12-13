@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -41,18 +41,19 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._subscription !== undefined) {
-      this._subscription.unsubscribe();
-    }
+      if (this._subscription !== undefined) {
+        this._subscription.unsubscribe();
+      }
   }
 
   public onLogin(): void {
-    this._subscription = this.userService.login(this.loginForm.value).subscribe((authenticated: boolean) => {
-      if (authenticated) {
-        this.router.navigate(['/', 'home']);
-      } else {
-        this.loginForm.reset();
-      }
-    })
+    this._subscription = this.userService.login(this.loginForm.value)
+      .subscribe((authenticated: boolean) => {
+        if (authenticated) {
+          this.router.navigate(['/', 'home']);
+        } else {
+          this.loginForm.reset();
+        }
+      })
   }
 }

@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root'
 })
 export class HandleDetailService {
 
-	private _isDetailHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  private _isDetailHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-	constructor() {}
+  constructor() { }
 
-	public get isDetailHidden(): BehaviorSubject<boolean> {
-		return this._isDetailHidden$;
-	}
+  public get isDetailHidden(): BehaviorSubject<boolean> {
+    return this._isDetailHidden$;
+  }
 
-	public setIsDetailHidden(state: boolean): void {
-		this._isDetailHidden$.next(state);
-	}
+  public setIsDetailHidden(state: boolean): void {
+    this._isDetailHidden$.next(state);
+  }
 }

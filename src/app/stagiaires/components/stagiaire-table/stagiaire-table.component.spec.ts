@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InitialsPipe } from 'src/app/shared/pipes/initials.pipe';
+import { StagiaireFilterComponent } from '../stagiaire.filter/stagiaire.filter.component';
 
 import { StagiaireTableComponent } from './stagiaire-table.component';
-import { StagiaireFilterComponent } from '../stagiaire-filter/stagiaire-filter.component';
 
 describe('StagiaireTableComponent', () => {
   let component: StagiaireTableComponent;
@@ -10,7 +10,7 @@ describe('StagiaireTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
+      declarations: [ 
         StagiaireTableComponent,
         InitialsPipe,
         StagiaireFilterComponent

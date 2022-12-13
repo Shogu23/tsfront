@@ -6,94 +6,102 @@ import { Stagiaire } from 'src/app/core/models/stagiaire';
 import { StagiaireService } from 'src/app/core/services/stagiaire.service';
 import { HandleDetailService } from 'src/app/shared/directives/handle-detail.service';
 
+
 @Component({
-	selector: 'app-stagiaire-table',
-	templateUrl: './stagiaire-table.component.html',
-	styleUrls: ['./stagiaire-table.component.scss'],
+  selector: 'app-stagiaire-table',
+  templateUrl: './stagiaire-table.component.html',
+  styleUrls: ['./stagiaire-table.component.scss']
 })
 export class StagiaireTableComponent implements OnInit {
-	public stagiaires: Array<Stagiaire> = [];
-	public stopDate: Date | null = null;
-	public isHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-	public selectedStagiaire: Stagiaire | null = null;
 
-	public bubbleConfig: any = {
-		height: '2em',
-		width: '2em',
-		lineHeight: '2em', // equiv css : line-height
-		backgroundColor: 'rgba(20, 20, 200, .5)',
-		borderColor: 'darken(rgba(20, 20, 200, .5)), 25%)',
-		color: '#fff',
-		borderRadius: '50%',
-		fontWeight: 'bold',
-		verticalAlign: 'middle',
-		textAlign: 'center',
-		display: 'inline-block'
-	}
+  public stagiaires: Array<Stagiaire> = [];
+  public stopDate: Date | null = null;
+  /**
+   * if true detail is visible, hidden else
+   */
+  public isDetailHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
-	constructor(
-		private stagiaireService: StagiaireService,
-		private handleDetailService: HandleDetailService,
-		private router: Router
-	) {}
+  public selectedStagiaire: Stagiaire | null = null;
 
-	ngOnInit(): void {
-		this.stagiaireService.findAll().subscribe((stagiaires: Stagiaire[]) => {
-			this.stagiaires = stagiaires;
-		});
-		this.isHidden$ = this.handleDetailService.isDetailHidden;
-	}
+  public bubbleConfig: any = {
+    height: '2em',
+    width: '2em',
+    lineHeight: '2em', // equiv css : line-height
+    backgroundColor: 'rgba(20, 20, 200, .5)',
+    borderColor: 'darken(rgba(20, 20, 200, .5)), 25%)',
+    color: '#fff',
+    borderRadius: '50%',
+    fontWeight: 'bold',
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    display: 'inline-block'
+  }
 
-	public getVisibleStagiaireNumber(): number {
-		return this.stagiaireService.getVisibleStagiaireNumber(this.stopDate);
-	}
+  constructor(
+    private stagiaireService: StagiaireService,
+    private handleDetailService: HandleDetailService,
+    private router: Router
+  ) {}
 
-	public onRemove(stagiaire: Stagiaire): void {
-		console.log(
-			`L'utilisateur souhaite supprimer ${stagiaire.getLastName()}`
-		);
-		this.stagiaireService.delete(stagiaire)
-		.subscribe({
-			next: (response: HttpResponse<any>) => {
-				this.stagiaires.splice(
-					this.stagiaires.findIndex((s: Stagiaire) => s.getId() === stagiaire.getId()), 1
-				)
-			  // Here goes the snackbar
-			},
-			error: (error: any) => {
-				// Something went wrong, deal with it
-				console.log('Error was intercepted')
-			},
-			complete: () => {
-				console.log('Complete was fired')
-			}
-		})
-		;
-	}
+  ngOnInit(): void {
+    this.stagiaireService
+        .findAll()
+        .subscribe((stagiaires: Stagiaire[]) => {
+            this.stagiaires = stagiaires;
+        })
+    this.isDetailHidden$ = this.handleDetailService.isDetailHidden;
+  }
 
-	public onClick(stagiaire: Stagiaire): void {
-		this.router.navigate(['/', 'stagiaire', stagiaire.getId()])  
-	}
+  public getVisibleStagiaireNumber(): number {
+    return this.stagiaireService.getVisibleStagiaireNumber(
+          this.stopDate);
+  }
 
-	public onUpdate(stagiaire: Stagiaire): void {
-		console.log('gotoupdatebiatch');
-		this.router.navigate(['/', 'stagiaire', 'update', stagiaire.getId()])  
-	}
+  public onRemove(stagiaire: Stagiaire): void {
 
-	public filterChanged(event: Date | null): void {
-		console.log(`Filter as changed to : ${event}`);
-		this.stopDate = event;
-	}
+    console.log(`L'utilisateur souhaite supprimer ${stagiaire.getLastName()}`);
+    this.stagiaireService.delete(stagiaire)
+      .subscribe({
+        next: (response: HttpResponse<any>) => {
+          console.log('A value was notified')
+          this.stagiaires.splice(
+            this.stagiaires.findIndex((s: Stagiaire) => s.getId() === stagiaire.getId()),
+            1
+          )
+          // Here goes the snackbar
+        },
+        error: (error: any) => {
+          // Something went wrong, deal with it
+          console.log('Error was intercepted')
+        },
+        complete: () => {
+          console.log('Complete was fired')
+        }
+      })
+  }
 
-	public changeView(stagiaire: Stagiaire): boolean {
-		if (this.stopDate === null) {
-			return true;
-		}
+  public onClick(stagiaire: Stagiaire): void {
+    this.router.navigate(['/', 'stagiaire', stagiaire.getId()]);
+  }
 
-		if (this.stopDate.getDate() === 31) {
-			return stagiaire.getBirthDate() > this.stopDate;
-		}
+  public onUpdate(stagiaire: Stagiaire): void {
+    this.router.navigate(['/', 'stagiaire', 'update', stagiaire.getId()]);
+  }
 
-		return stagiaire.getBirthDate() < this.stopDate;
-	}
+  public filterChanged(event: Date | null): void {
+    console.log(`Filter as changed to : ${event}`);
+    this.stopDate = event;
+  }
+
+  public changeView(stagiaire: Stagiaire): boolean {
+    if (this.stopDate === null) {
+      return true;
+    }
+
+    if (this.stopDate.getDate() === 31) {
+      return stagiaire.getBirthDate() > this.stopDate;
+    }
+
+    return stagiaire.getBirthDate() < this.stopDate;
+  }
 }
