@@ -13,10 +13,10 @@
   <span>{{ title }}</span>
   <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon" *ngIf="!hasUser" [routerLink]="['/', 'login']">
-    <mat-icon>account_circle</mat-icon>
+    <mat-icon>account_circle</mat-icon>LOGIN
   </button>
   <button mat-icon-button class="example-icon" *ngIf="hasUser" (click)="onLogout()">
-    <mat-icon>person_off</mat-icon>
+    <mat-icon>person_off</mat-icon>LOGOUT
   </button>
 </mat-toolbar>
 
